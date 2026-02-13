@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Modern Portfolio App</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+<h2> Rahul Portfolio</h2>
+<button onclick="toggleDark()">🌙</button>
+</nav>
+
+<div class="container">
+
+<div class="card">
+<h2>Joke Generator</h2>
+<button onclick="getJoke()">Get Joke</button>
+<p id="joke"></p>
+</div>
+
+<div class="card">
+<h2> Quiz</h2>
+<p id="question"></p>
+<button onclick="answer(true)">True</button>
+<button onclick="answer(false)">False</button>
+<p id="score"></p>
+</div>
+
+<div class="card">
+<h2>Carousel</h2>
+<img id="carousel" src="1.jpg">
+<img id="carouse2" src="2.jpg">
+<img id="carouse3" src="3.jpg">
+</div>
+
+</div>
+
+<script src="script.js"></script>
+<script src="api.js"></script>
+
+</body>
+</html>
