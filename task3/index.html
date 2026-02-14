@@ -1,31 +1,50 @@
-<tainer">
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="card">
-<h2>Joke Generator</h2>
-<button onclick="getJoke()">Get Joke</button>
-<p id="joke"></p>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Web App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-<div class="card">
-<h2> Quiz</h2>
-<p id="question"></p>
-<button onclick="answer(true)">True</button>
-<button onclick="answer(false)">False</button>
-<p id="score"></p>
-</div>
+<body>
+    <section class="top-section">
+        <div class="quiz-section">
+            <h2>Quiz</h2>
+            <div class="quiz-container">
+                <p id="question"></p>
+                <div id="options"></div>
+                <div class="quiz-buttons">
+                    <button onclick="submitAnswer()">Submit</button>
+                    <button onclick="nextQuestion()">Next</button>
+                </div>
+                <p id="result"></p>
+            </div>
+        </div>
 
-<div class="card">
-<h2>Carousel</h2>
-<img id="carousel" src="1.jpg">
-<img id="carouse2" src="2.jpg">
-<img id="carouse3" src="3.jpg">
-</div>
+        <div class="carousel-section">
+            <h2>Image Carousel</h2>
+            <div class="carousel">
+                <img src="https://picsum.photos/id/1015/800/400" class="active">
+                <img src="https://picsum.photos/id/1016/800/400">
+                <img src="https://picsum.photos/id/1018/800/400">
+            </div>
+            <div class="carousel-controls">
+                <button onclick="prevImage()">Previous</button>
+                <button onclick="nextImage()">Next</button>
+            </div>
+        </div>
 
-</div>
-
-<script src="script.js"></script>
-<script src="api.js"></script>
-
+    </section>
+    <section class="api-section">
+        <h2>Random Joke Generator</h2>
+        <div class="api-box" id="jokeBox">
+            Click button to load joke
+        </div>
+        <button onclick="getJoke()">Fetch Joke</button>
+    </section>
+    <script src="script.js"></script>
 </body>
-</html>
 
+</html>
