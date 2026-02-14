@@ -1,44 +1,99 @@
-// QUIZ DATA
-let questions=[
- {q:"JavaScript is a programming language",a:true},
- {q:"HTML is a database",a:false}
+let index = 0;
+const images = document.querySelectorAll(".carousel img");
+
+function showImage(i) {
+    images.forEach(img => img.classList.remove("active"));
+    images[i].classList.add("active");
+}
+
+function nextImage() {
+    index = (index + 1) % images.length;
+    showImage(index);
+}
+
+function prevImage() {
+    index = (index - 1 + images.length) % images.length;
+    showImage(index);
+}
+
+
+
+const quizData = [{
+        question: "Which language is used for styling?",
+        options: ["HTML", "CSS", "Java", "Python"],
+        answer: "CSS"
+    },
+    {
+        question: "Which is JS Framework?",
+        options: ["React", "Laravel", "Django", "PHP"],
+        answer: "React"
+    }
 ];
 
-let index=0;
-let score=0;
+let currentQ = 0;
+let selectedAnswer = "";
 
-// LOAD QUESTION
-function loadQuestion(){
- document.getElementById("question").innerText=
- questions[index].q;
+function loadQuiz() {
+    selectedAnswer = "";
+    document.getElementById("result").innerText = "";
+
+    const q = quizData[currentQ];
+    document.getElementById("question").innerText = q.question;
+
+    const optionsDiv = document.getElementById("options");
+    optionsDiv.innerHTML = "";
+
+    q.options.forEach(opt => {
+        const div = document.createElement("div");
+        div.classList.add("option");
+        div.innerText = opt;
+
+        div.onclick = () => {
+            document.querySelectorAll(".option")
+                .forEach(o => o.classList.remove("selected"));
+
+            div.classList.add("selected");
+            selectedAnswer = opt;
+        };
+
+        optionsDiv.appendChild(div);
+    });
 }
 
-// RUN FIRST TIME
-loadQuestion();
+function submitAnswer() {
+    const result = document.getElementById("result");
 
-// ANSWER FUNCTION
-function answer(ans){
- if(ans===questions[index].a){
-  score++;
- }
- index++;
+    if (!selectedAnswer) {
+        result.innerText = "⚠️ Please select an option!";
+        return;
+    }
 
- if(index<questions.length){
-  loadQuestion();
- }else{
-  document.getElementById("score").innerText=
-  "Score: "+score;
- }
-}
-let images=["1.jpg","2.jpg","3.jpg"];
-let imgIndex=0;
+    const correct = quizData[currentQ].answer;
 
-function autoSlide(){
- imgIndex++;
- if(imgIndex>=images.length){
-  imgIndex=0;
- }
- document.getElementById("carousel").src=images[imgIndex];
+    if (selectedAnswer === correct) {
+        result.innerText = "✅ Correct Answer!";
+    } else {
+        result.innerText = "❌ Wrong! Correct: " + correct;
+    }
 }
 
-setInterval(autoSlide,3000);
+function nextQuestion() {
+    currentQ = (currentQ + 1) % quizData.length;
+    loadQuiz();
+}
+
+loadQuiz();
+
+async function getJoke() {
+    const box = document.getElementById("jokeBox");
+    box.innerText = "Loading...";
+
+    try {
+        const res = await fetch("https://official-joke-api.appspot.com/random_joke");
+        const data = await res.json();
+
+        box.innerText = data.setup + " 😂 " + data.punchline;
+    } catch {
+        box.innerText = "Failed to fetch joke.";
+    }
+}
